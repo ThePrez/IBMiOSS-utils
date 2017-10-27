@@ -1,0 +1,13 @@
+#!/QOpenSys/usr/bin/sh
+if [ "$1" == "" ] ; then
+	echo "Usage:" $(basename $0) "<username>"
+	exit 5
+fi
+
+if [ $(find ~/.ssh -name id_\* | wc -l) == "0" ] ; then
+	echo "Generating new SSH keys"
+	echo | /QOpenSys/usr/bin/ssh-keygen -N "" || exit 6
+else 
+	echo "Using existing SSH keys"
+fi
+exec /QOpenSys/QIBM/ProdData/SC1/OpenSSH/bin/ssh-copy-id $1@127.0.0.1
