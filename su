@@ -1,4 +1,7 @@
 #!/QOpenSys/usr/bin/sh
+#
+# NOTE: if you want to 'su' without a password, run su-setup first
+#
 if [ "$1" == "" ] ; then
 	echo "Usage:" $(basename $0) "<username>"
 	exit 5
