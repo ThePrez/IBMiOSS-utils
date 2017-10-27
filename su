@@ -1,0 +1,10 @@
+#!/QOpenSys/usr/bin/sh
+if [ "$1" == "" ] ; then
+	echo "Usage:" $(basename $0) "<username>"
+	exit 5
+fi
+SSH_OPTS="-Y"
+if [ "$DISPLAY" == "" ] ; then
+	SSH_OPTS="-x"
+fi
+exec /QOpenSys/usr/bin/ssh $SSH_OPTS $1@127.0.0.1
