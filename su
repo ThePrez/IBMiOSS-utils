@@ -79,12 +79,12 @@ done
 
 if [ "$RMT_CMD" == "" ] ; then
 	if [ "$RMT_SHELL_ENVARGS" == "" ] ; then
-		RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL -l "
+		RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL "
 	else
-		RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL -l -c '$RMT_SHELL_ENVARGS exec $RMT_SHELL' "
+		RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL -c '$RMT_SHELL_ENVARGS exec $RMT_SHELL' "
 	fi
 else
-	RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL -l -c '$RMT_SHELL_ENVARGS $RMT_CMD' "
+	RMT_CMD="cd $RMT_DIR && exec $RMT_SHELL -c '$RMT_SHELL_ENVARGS $RMT_CMD' "
 fi
 
 
