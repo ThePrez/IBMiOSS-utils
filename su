@@ -5,7 +5,7 @@
 #
 
 usage() {
-	echo "Usage:" $(basename $0) "<username>"
+	echo "Usage:" $(basename $0) "<username>" "<options>"
 	exit 5
 }
 
