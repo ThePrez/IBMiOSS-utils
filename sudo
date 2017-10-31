@@ -1,0 +1,7 @@
+#!/QOpenSys/usr/bin/sh
+
+#
+# NOTE: to 'sudo' without a password, run 'su-setup qsecofr' first
+#
+# NOTE2: This function is currently untested
+$(dirname $0)/su qsecofr -c "$1"
