@@ -1,0 +1,81 @@
+#!/QOpenSys/pkgs/bin/bash
+
+declare -a shell_list=("/QOpenSys/pkgs/bin/bash" "/QOpenSys/usr/bin/csh" "/QOpenSys/usr/bin/ksh" "/QOpenSys/usr/bin/psh" "/QOpenSys/usr/bin/sh" "/QOpenSys/usr/bin/bsh" "/QOpenSys/pkgs/bin/zsh" "/QOpenSys/pkgs/bin/csh" "/QOpenSys/pkgs/bin/tcsh")
+
+USER=""
+SHELL2SET=""
+
+function usage {
+    echo "chsh [-s shell] [-l] [-u] [-v] [username]" 
+    exit 0
+}
+
+function list { 
+    for i in "${shell_list[@]}"
+    do
+       echo "$i"
+    done
+    exit 0
+}
+
+function validate_shell {
+    if [ ! -f "$1" ] ; then
+    	echo "ERROR!! specified shell does not exist: $1" >&2
+    	exit 8
+    fi
+    for i in "${shell_list[@]}"
+    do
+        if [ "$i" == "$1" ] ; then
+            return 0
+        fi
+    done
+    echo "ERROR!! specified shell not allowed: $1" >&2
+    exit 7
+}
+
+while [[ $# -gt 0 ]]
+do
+arg="$1"
+case $arg in
+    -l)
+        list
+    ;;
+    -u|-h)
+        usage
+    ;;
+    -v|--version)
+    LIBPATH="$2"
+        echo "Version 1.0"
+        exit 0
+    ;;
+    -s) 
+        SHELL2SET="$2"
+        shift
+        shift
+    ;;
+    *)
+        if [ -z "$USER" ]; 
+        then
+            USER="$1"
+            shift
+        else
+            echo "ERROR!! Improper syntax" >&2
+            echo "" >&2
+            usage
+        fi
+    ;;
+esac
+done
+
+if [ "$SHELL2SET" == "" ] ; then
+    echo "ERROR!! Shell not specified." >&2
+    exit 8
+fi
+if [ "$USER" == "" ] ; then
+    echo "ERROR!! User not specified." >&2
+    exit 8
+fi
+
+validate_shell "$SHELL2SET"
+
+exec /usr/bin/qsh -c "/usr/bin/db2 \"CALL QSYS2.SET_PASE_SHELL_INFO('$USER', '$SHELL2SET')\" "
