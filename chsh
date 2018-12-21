@@ -72,10 +72,12 @@ if [ "$SHELL2SET" == "" ] ; then
     exit 8
 fi
 if [ "$USER" == "" ] ; then
-    echo "ERROR!! User not specified." >&2
-    exit 8
+    USER="*CURRENT" #effectively making this an option parm, defaulting to *CURRENT
 fi
 
+if [[ "$SHELL2SET" != /* ]]; then
+    SHELL2SET="/QOpenSys/pkgs/bin/$SHELL2SET"
+fi
 validate_shell "$SHELL2SET"
 
 exec /usr/bin/qsh -c "/usr/bin/db2 \"CALL QSYS2.SET_PASE_SHELL_INFO('$USER', '$SHELL2SET')\" "
