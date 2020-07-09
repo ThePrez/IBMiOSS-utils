@@ -95,7 +95,7 @@ check_not_contains "ERROR" "Using AIX git" "/QOpenSys/pkgs/bin/readlink -f `whic
 check_not_contains "ERROR" "Using 5733OPS node" "/QOpenSys/pkgs/bin/readlink -f `which node`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS npm" "/QOpenSys/pkgs/bin/readlink -f `which npm`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/QOpenSys/QIBM"
-check_not_contains "WARNING" "Using PASE tar (may want to install tar-gnu)" "/QOpenSys/pkgs/bin/readlink -f `which tar`" "/QOpenSys/usr/bin/tar"
+check_not_contains "WARNING" "Using PASE tar (may want to install tar-gnu)" "which tar" "/QOpenSys/usr/bin/tar"
 check_cmd_success "ERROR" "RPM database sanity check" "/QOpenSys/pkgs/bin/yum check"
 check_yum_pkg "WARNING" "ca-certificates-mozilla"
 check_yum_pkg "ERROR" "bash"
