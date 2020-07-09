@@ -15,7 +15,7 @@ function fail {
     fi
 }
 
-# 
+#
 function check_contains {
     print -n checking to be false\: "$2"...
     if [[ $(sh -c "$3" 2>&1) == *"$4"* ]]; then
@@ -50,7 +50,7 @@ function check_exists {
 }
 function check_cmd_success {
     print -n "$2"...
-    CMDOUT=$(>&2 sh -c "$3" > /dev/null)
+    CMDOUT=$(sh -c "$3" 2>&1)
     if [[ "$?" == 0 ]]; then
         pass
     else
@@ -63,7 +63,7 @@ check_not_contains "ERROR" "PATH contains /opt/freeware/bin" "echo $PATH" "/opt/
 check_contains "ERROR" "Not using proper RPM" "which rpm" "/QOpenSys/pkgs/bin/rpm"
 check_contains "WARNING" "Not using bash" "ps" "bash"
 check_contains "ERROR" "Not using GNU coreutils (may need to install 'coreutils-gnu' package)" "which ls" "/QOpenSys/pkgs/bin/ls"
-check_contains "WARNING" "5733OPS is still installed" "/QOpenSys/usr/bin/system 'QSYS/CHKPRDOPT PRDID(5733OPS)'" "CPF0C4A"
+check_contains "WARNING" "5733OPS is still installed" "/QOpenSys/usr/bin/system 'QSYS/CHKPRDOPT PRDID(5733OPS) OPTION(*BASE)'" "CPF0C4A"
 check_no_exists "WARNING" "/opt/freeware/bin/rpm"
 check_no_exists "WARNING" "/opt/freeware/bin/yum"
 check_no_exists "ERROR" "/usr/bin/gcc"
