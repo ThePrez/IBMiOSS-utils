@@ -1,0 +1,120 @@
+#!/QOpenSys/usr/bin/sh
+set -A WARNINGS
+set -A ERRORS
+
+function pass {
+    print "PASS"
+}
+function fail {
+    if [[ "$1" == "ERROR" ]]; then
+        >&2 echo FAILED
+        ERRORS[${#ERRORS[*]}+1]="$2"
+    else
+        >&2 echo WARNING
+        WARNINGS[${#WARNINGS[*]}+1]="$2"
+    fi
+}
+
+# 
+function check_contains {
+    print -n checking to be false\: "$2"...
+    if [[ $(sh -c "$3" 2>&1) == *"$4"* ]]; then
+        pass
+    else
+        fail "$1" "$2"
+    fi
+}
+function check_not_contains {
+    print -n checking to be false\: "$2"...
+    if [[ $(sh -c "$3" 2>&1) == *"$4"* ]]; then
+        fail "$1" "$2"
+    else
+        pass
+    fi
+}
+function check_no_exists {
+    print -n checking that "$2" does not exist...
+    if [ ! -e "$2" ]; then
+        pass
+    else
+        fail "$1" "$2 exists"
+    fi
+}
+function check_exists {
+    print -n checking that "$2" does exist...
+    if [ -e "$2" ]; then
+        pass
+    else
+        fail "$1" "$2 exists"
+    fi
+}
+function check_cmd_success {
+    print -n "$2"...
+    CMDOUT=$(>&2 sh -c "$3" > /dev/null)
+    if [[ "$?" == 0 ]]; then
+        pass
+    else
+        echo "cmdout $CMDOUT"
+        fail "$1" "$2 failed: $CMDOUT"
+    fi
+}
+check_contains "ERROR" "PATH does not contain /QOpenSys/pkgs/bin" "echo $PATH" "/QOpenSys/pkgs/bin"
+check_not_contains "ERROR" "PATH contains /opt/freeware/bin" "echo $PATH" "/opt/freeware/bin"
+check_contains "ERROR" "Not using proper RPM" "which rpm" "/QOpenSys/pkgs/bin/rpm"
+check_contains "WARNING" "Not using bash" "ps" "bash"
+check_contains "ERROR" "Not using GNU coreutils (may need to install 'coreutils-gnu' package)" "which ls" "/QOpenSys/pkgs/bin/ls"
+check_contains "WARNING" "5733OPS is still installed" "/QOpenSys/usr/bin/system 'QSYS/CHKPRDOPT PRDID(5733OPS)'" "CPF0C4A"
+check_no_exists "WARNING" "/opt/freeware/bin/rpm"
+check_no_exists "WARNING" "/opt/freeware/bin/yum"
+check_no_exists "ERROR" "/usr/bin/gcc"
+check_no_exists "ERROR" "/QOpenSys/usr/bin/gcc"
+check_no_exists "ERROR" "/opt/freeware/bin/yum"
+check_exists "ERROR" "/QOpenSys/pkgs/bin/readlink"
+check_exists "ERROR" "/QOpenSys/pkgs/bin/yum"
+check_exists "ERROR" "/QOpenSys/pkgs/bin/rpm"
+check_exists "ERROR" "/QOpenSys/pkgs/bin/bash"
+check_not_contains "ERROR" "Using 5733OPS Python 3" "python3 --version" " 3.4"
+check_not_contains "ERROR" "Using 5733OPS Python" "/QOpenSys/pkgs/bin/readlink -f `which python`" "/QOpenSys/QIBM"
+check_not_contains "ERROR" "Using AIX Python" "/QOpenSys/pkgs/bin/readlink -f `which python`" "/opt/freeware/bin/python"
+check_not_contains "ERROR" "Using AIX Python 2" "/QOpenSys/pkgs/bin/readlink -f `which python2`" "/opt/freeware/bin/python2"
+check_not_contains "ERROR" "Using AIX Python 3" "/QOpenSys/pkgs/bin/readlink -f `which python3`" "/opt/freeware/bin/python3"
+check_not_contains "ERROR" "Using AIX RPM" "/QOpenSys/pkgs/bin/readlink -f `which rpm`" "/opt/freeware/bin/rpm"
+check_not_contains "ERROR" "Using AIX bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/opt/freeware/bin/bash"
+check_not_contains "ERROR" "Using 5733OPS node" "/QOpenSys/pkgs/bin/readlink -f `which node`" "/QOpenSys/QIBM"
+check_not_contains "ERROR" "Using 5733OPS npm" "/QOpenSys/pkgs/bin/readlink -f `which npm`" "/QOpenSys/QIBM"
+check_not_contains "ERROR" "Using 5733OPS bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/QOpenSys/QIBM"
+check_cmd_success "ERROR" "RPM database sanity check" "/QOpenSys/pkgs/bin/yum check"
+
+
+print  " "
+print  " "
+print  " "
+print  " "
+print  " "
+print  " "
+print "============================================"
+print " Summary:"
+print "    ${#ERRORS[*]} errors, ${#WARNINGS[*]} warnings"
+print " "
+if [[ "${#WARNINGS[*]}" != "0" ]]; then
+    print " The following warnings were discovered:"
+    i=1
+    while [ $i -le ${#WARNINGS[@]} ]
+    do
+        print "  - " ${WARNINGS[$i]}
+        (( i=i+1 ))
+    done
+    print " "
+fi
+if [[ "${#ERRORS[*]}" != "0" ]]; then
+    print " The following errors were discovered:"
+    i=1
+    while [ $i -le ${#ERRORS[@]} ]
+    do
+        print "  - " ${ERRORS[$i]}
+        (( i=i+1 ))
+    done
+    print " "
+fi
+
+    
