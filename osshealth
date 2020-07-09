@@ -58,11 +58,21 @@ function check_cmd_success {
         fail "$1" "$2 failed: $CMDOUT"
     fi
 }
+function check_yum_pkg {
+    print -n "checking that package '$2' is installed"...
+    CMDOUT=$(sh -c "/QOpenSys/pkgs/bin/yum list installed $2" 2>&1)
+    if [[ "$?" == 0 ]]; then
+        pass
+    else
+        echo "cmdout $CMDOUT"
+        fail "$1" "Package not installed: $2"
+    fi
+}
 check_contains "ERROR" "PATH does not contain /QOpenSys/pkgs/bin" "echo $PATH" "/QOpenSys/pkgs/bin"
 check_not_contains "ERROR" "PATH contains /opt/freeware/bin" "echo $PATH" "/opt/freeware/bin"
 check_contains "ERROR" "Not using proper RPM" "which rpm" "/QOpenSys/pkgs/bin/rpm"
 check_contains "WARNING" "Not using bash" "ps" "bash"
-check_contains "ERROR" "Not using GNU coreutils (may need to install 'coreutils-gnu' package)" "which ls" "/QOpenSys/pkgs/bin/ls"
+check_contains "ERROR" "Not using GNU coreutils (may need to install 'coreutils-gnu' package or adjust PATH)" "which ls" "/QOpenSys/pkgs/bin/ls"
 check_contains "WARNING" "5733OPS is still installed" "/QOpenSys/usr/bin/system 'QSYS/CHKPRDOPT PRDID(5733OPS) OPTION(*BASE)'" "CPF0C4A"
 check_no_exists "WARNING" "/opt/freeware/bin/rpm"
 check_no_exists "WARNING" "/opt/freeware/bin/yum"
@@ -73,18 +83,23 @@ check_exists "ERROR" "/QOpenSys/pkgs/bin/readlink"
 check_exists "ERROR" "/QOpenSys/pkgs/bin/yum"
 check_exists "ERROR" "/QOpenSys/pkgs/bin/rpm"
 check_exists "ERROR" "/QOpenSys/pkgs/bin/bash"
-check_not_contains "ERROR" "Using 5733OPS Python 3" "python3 --version" " 3.4"
 check_not_contains "ERROR" "Using 5733OPS Python" "/QOpenSys/pkgs/bin/readlink -f `which python`" "/QOpenSys/QIBM"
+check_not_contains "ERROR" "Using 5733OPS Python 3" "/QOpenSys/pkgs/bin/readlink -f `which python3`" "/QOpenSys/QIBM"
+check_not_contains "ERROR" "Using 5733OPS Python 2" "/QOpenSys/pkgs/bin/readlink -f `which python3`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using AIX Python" "/QOpenSys/pkgs/bin/readlink -f `which python`" "/opt/freeware/bin/python"
 check_not_contains "ERROR" "Using AIX Python 2" "/QOpenSys/pkgs/bin/readlink -f `which python2`" "/opt/freeware/bin/python2"
 check_not_contains "ERROR" "Using AIX Python 3" "/QOpenSys/pkgs/bin/readlink -f `which python3`" "/opt/freeware/bin/python3"
 check_not_contains "ERROR" "Using AIX RPM" "/QOpenSys/pkgs/bin/readlink -f `which rpm`" "/opt/freeware/bin/rpm"
 check_not_contains "ERROR" "Using AIX bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/opt/freeware/bin/bash"
+check_not_contains "ERROR" "Using AIX git" "/QOpenSys/pkgs/bin/readlink -f `which git`" "/opt/freeware/bin/git"
 check_not_contains "ERROR" "Using 5733OPS node" "/QOpenSys/pkgs/bin/readlink -f `which node`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS npm" "/QOpenSys/pkgs/bin/readlink -f `which npm`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/QOpenSys/QIBM"
+check_not_contains "WARNING" "Using PASE tar (may want to install tar-gnu)" "/QOpenSys/pkgs/bin/readlink -f `which tar`" "/QOpenSys/usr/bin/tar"
 check_cmd_success "ERROR" "RPM database sanity check" "/QOpenSys/pkgs/bin/yum check"
-
+check_yum_pkg "WARNING" "ca-certificates-mozilla"
+check_yum_pkg "ERROR" "bash"
+check_yum_pkg "ERROR" "coreutils-gnu"
 
 print  " "
 print  " "
@@ -116,5 +131,3 @@ if [[ "${#ERRORS[*]}" != "0" ]]; then
     done
     print " "
 fi
-
-    
