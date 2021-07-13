@@ -92,7 +92,7 @@ check_not_contains "ERROR" "Using AIX Python 3" "/QOpenSys/pkgs/bin/readlink -f 
 check_not_contains "ERROR" "Using AIX RPM" "/QOpenSys/pkgs/bin/readlink -f `which rpm`" "/opt/freeware/bin/rpm"
 check_not_contains "ERROR" "Using AIX bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/opt/freeware/bin/bash"
 check_not_contains "ERROR" "Using AIX git" "/QOpenSys/pkgs/bin/readlink -f `which git`" "/opt/freeware/bin/git"
-check_contains "ERROR" "Using AIX curl" "/QOpenSys/pkgs/bin/readlink -f `which git`" "/QOpenSys/pkgs/bin/git"
+check_contains "ERROR" "Using AIX curl" "/QOpenSys/pkgs/bin/readlink -f `which curl`" "/QOpenSys/pkgs/bin/git"
 check_not_contains "ERROR" "Using 5733OPS node" "/QOpenSys/pkgs/bin/readlink -f `which node`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS npm" "/QOpenSys/pkgs/bin/readlink -f `which npm`" "/QOpenSys/QIBM"
 check_not_contains "ERROR" "Using 5733OPS bash" "/QOpenSys/pkgs/bin/readlink -f `which bash`" "/QOpenSys/QIBM"
