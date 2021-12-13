@@ -52,9 +52,9 @@
 # Otherwise, as a last resort, just copy/paste the non-commented lines in this file.
 
 
+# Use the LOG4J_FORMAT_MSG_NO_LOOKUPS to disable log4j lookup capability
+system -k "ADDENVVAR ENVVAR(LOG4J_FORMAT_MSG_NO_LOOKUPS) VALUE('true') REPLACE(*YES) LEVEL(*SYS)"
 
+# This is a redundant backup in case the ENVVAR is accidentally removed or overwritten (works for JV1 Java only)
 qsh -c 'touch -C 37 /QIBM/UserData/Java400/SystemDefault.properties'
 qsh -c 'echo "log4j2.formatMsgNoLookups=true" >> /QIBM/UserData/Java400/SystemDefault.properties'
-
-# in case you're using a non-JV1 Java
-system -kpieb "ADDENVVAR ENVVAR(JAVA_TOOL_OPTIONS) VALUE('-Dlog4j2.formatMsgNoLookups=true') REPLACE(*YES) LEVEL(*SYS)"
