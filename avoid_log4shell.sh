@@ -3,6 +3,8 @@
 # Important notes
 # ---------------------------------------------------------------------------------------------------
 #
+# - This script comes with no form of warranty or guarantee. Please reference below license. 
+#
 # - This script is intended to serve as a part of a containment and mitigation activity for the
 #   Log4Stash vulnerability. IT IS NOT A COMPLETE FIX! Some versions of log4j will still be exposed.
 #   See https://www.fastly.com/blog/digging-deeper-into-log4shell-0day-rce-exploit-found-in-log4j
