@@ -14,8 +14,8 @@
 #   See https://www.fastly.com/blog/digging-deeper-into-log4shell-0day-rce-exploit-found-in-log4j
 #   for more details
 # 
-# - This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. Also, this
-#   script comes with no warranty (see license for details).
+# - This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. This
+#   will overwrite the value if you are setting the environment variable system-wide.
 #
 # ---------------------------------------------------------------------------------------------------
 # License
