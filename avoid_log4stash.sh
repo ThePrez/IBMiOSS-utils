@@ -62,3 +62,6 @@ system -k "ADDENVVAR ENVVAR(LOG4J_FORMAT_MSG_NO_LOOKUPS) VALUE('true') REPLACE(*
 # This is a redundant backup in case the ENVVAR is accidentally removed or overwritten (works for JV1 Java only)
 qsh -c 'touch -C 37 /QIBM/UserData/Java400/SystemDefault.properties'
 qsh -c 'echo "log4j2.formatMsgNoLookups=true" >> /QIBM/UserData/Java400/SystemDefault.properties'
+
+echo " "
+echo "COMPLETE"
