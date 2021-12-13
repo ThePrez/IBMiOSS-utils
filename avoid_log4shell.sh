@@ -1,4 +1,4 @@
-#!/QOpenSys/usr/bin/qsh
+#!/usr/bin/qsh
 # ---------------------------------------------------------------------------------------------------
 # Important notes
 # ---------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@
 
 
 
-touch /QIBM/UserData/Java400/SystemDefault.properties
+touch -C 37 /QIBM/UserData/Java400/SystemDefault.properties
 echo 'log4j2.formatMsgNoLookups=true' >> /QIBM/UserData/Java400/SystemDefault.properties
 
 # in case you're using a non-JV1 Java
