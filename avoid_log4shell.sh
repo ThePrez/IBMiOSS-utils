@@ -53,7 +53,7 @@
 
 
 
-touch -C 37 /QIBM/UserData/Java400/SystemDefault.properties
+qsh -c 'touch -C 37 /QIBM/UserData/Java400/SystemDefault.properties'
 echo 'log4j2.formatMsgNoLookups=true' >> /QIBM/UserData/Java400/SystemDefault.properties
 
 # in case you're using a non-JV1 Java
