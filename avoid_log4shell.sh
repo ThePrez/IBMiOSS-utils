@@ -4,7 +4,9 @@
 # ---------------------------------------------------------------------------------------------------
 #
 # - This script is intended to serve as a part of a containment and mitigation activity for the
-#   Log4Stash vulnerability. IT IS NOT A COMPLETE FIX!
+#   Log4Stash vulnerability. IT IS NOT A COMPLETE FIX! Some versions of log4j will still be exposed.
+#   See https://www.fastly.com/blog/digging-deeper-into-log4shell-0day-rce-exploit-found-in-log4j
+#   for more details
 # 
 # - This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. Also, this
 #   script comes with no warranty (see license for details).
