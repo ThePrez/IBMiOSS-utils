@@ -2,6 +2,11 @@
 # ---------------------------------------------------------------------------------------------------
 # Important notes
 # ---------------------------------------------------------------------------------------------------
+#
+# Please see avoid_log4shell.sh for the current version! When I first published, I borked up the name,
+# but I am leaving this here in case anyone references it. OOPS!!
+# The properly-named version is at https://github.com/ThePrez/IBMiOSS-utils/blob/master/avoid_log4shell.sh
+#
 # This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. Also, this
 # script comes with no warranty (see license for details).
 #
@@ -33,13 +38,13 @@
 # Instructions
 # ---------------------------------------------------------------------------------------------------
 # If you have wget, you can do the following to download and run:
-#      wget https://github.com/ThePrez/IBMiOSS-utils/raw/master/avoid_log4stash.sh
-#      chmod +x ./avoid_log4stash.sh
-#      ./avoid_log4stash.sh
+#      wget https://github.com/ThePrez/IBMiOSS-utils/raw/master/avoid_log4shell.sh
+#      chmod +x ./avoid_log4shell.sh
+#      ./avoid_log4shell.sh
 #
 # Otherwise, download https://github.com/ThePrez/IBMiOSS-utils/raw/master/avoid_log4stash.sh manually and
 # place in IFS and run:
-#      chmod +x ./avoid_log4stash.sh && ./avoid_log4stash.sh
+#      chmod +x ./avoid_log4shell.sh && ./avoid_log4shell.sh
 # 
 # Otherwise, as a last resort, just copy/paste the non-commented lines in this file.
 
