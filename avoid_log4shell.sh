@@ -2,8 +2,12 @@
 # ---------------------------------------------------------------------------------------------------
 # Important notes
 # ---------------------------------------------------------------------------------------------------
-# This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. Also, this
-# script comes with no warranty (see license for details).
+#
+# - This script is intended to serve as a part of a containment and mitigation activity for the
+#   Log4Stash vulnerability. IT IS NOT A COMPLETE FIX!
+# 
+# - This script assumes you are not utilizing JAVA_TOOL_OPTIONS to set Java options today. Also, this
+#   script comes with no warranty (see license for details).
 #
 # ---------------------------------------------------------------------------------------------------
 # License
