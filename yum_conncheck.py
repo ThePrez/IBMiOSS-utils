@@ -18,8 +18,8 @@ def check_alternative_protos():
     print 'HTTP protocol should work!'
     print 'To try it, run:'
     if exists('/QOpenSys/etc/yum/repos.d/ibmi-release-unsecure.repo'):
-      print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-base'
-      print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-release'
+      print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-base-unsecure'
+      print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-release-unsecure'
     else:
       print '    /QOpenSys/pkgs/bin/yum-config-manager  --setopt=ibm.baseurl=http://public.dhe.ibm.com/software/ibmi/products/pase/rpms/repo'
   except:
