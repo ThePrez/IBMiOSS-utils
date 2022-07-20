@@ -21,7 +21,7 @@ def check_alternative_protos():
       print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-base'
       print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi-release'
     else:
-      print '    /QOpenSys/pkgs/bin/yum-config-manager --enable-repo=ibmi'
+      print '    /QOpenSys/pkgs/bin/yum-config-manager  --setopt=ibm.baseurl=http://public.dhe.ibm.com/software/ibmi/products/pase/rpms/repo'
   except:
     try:
       socket.create_connection((hostname,21), timeout)
